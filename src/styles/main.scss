@@ -1,0 +1,26 @@
+@import '~normalize.css/normalize.css';
+@import '~@formanta/sass/meta';
+
+/*body {
+    box-sizing: border-box;
+}*/
+
+pre > code {
+    padding: 0
+}
+
+.light {
+    font-weight: 300;
+}
+
+.grid {
+    width: #{'calc(100% + ' + (space(1) * 2) + ')'};
+    margin: space(1) * -1;
+}
+
+.grid > .col {
+    padding: space(1);
+}
+
+@import '~@formanta/sass/style';
+

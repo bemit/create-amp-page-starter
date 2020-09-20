@@ -1,0 +1,23 @@
+{
+    "name": "create-amp-page-demo",
+    "private": true,
+    "version": "0.0.1",
+    "description": "",
+    "homepage": "",
+    "author": "Michael Becker <michael@bemit.codes>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bemit/create-amp-page-demo.git"
+    },
+    "dependencies": {
+        "@formanta/sass": "~0.20.0",
+        "normalize.css": "^8.0.1",
+        "create-amp-page": "0.0.2"
+    },
+    "scripts": {
+        "tasks": "gulp --tasks",
+        "start": "gulp watch",
+        "build": "gulp build"
+    }
+}
