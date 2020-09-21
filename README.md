@@ -13,7 +13,7 @@ Starting point for AMP pages generated with [`create-amp-page`](https://github.c
 
 Check `/build` folder for files and open [localhost:4488](http://localhost:4488) for your page!
 
-[![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/bemit/create-amp-page-demo)
+[![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/bemit/create-amp-page-starter)
 
 ## License
 
