@@ -12,8 +12,9 @@
     },
     "dependencies": {
         "@formanta/sass": "~0.20.0",
-        "normalize.css": "^8.0.1",
-        "create-amp-page": "0.0.2"
+        "create-amp-page": "0.0.4",
+        "markdown-it": "^11.0.1",
+        "normalize.css": "^8.0.1"
     },
     "scripts": {
         "tasks": "gulp --tasks",

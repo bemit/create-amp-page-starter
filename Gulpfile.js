@@ -1,6 +1,17 @@
 'use strict'
 const path = require('path')
 const {ampCreator} = require('create-amp-page')
+const markdownit = require('markdown-it')
+
+const md = markdownit({
+    // html: true,
+    linkify: true,
+    typographer: true,
+})
+
+const liveUrl = 'https://create-amp-page.netlify.app/'
+
+const makePathFromFile = file => path.basename(file).replace('.twig', '')
 
 // for infos check `create-amp-page` docs or typings/inline-doc!
 module.exports = ampCreator({
@@ -12,8 +23,8 @@ module.exports = ampCreator({
         htmlPages: 'src/html/pages',
         media: 'src/media',
         copy: [
-            {src: ['./src/api/*'], prefix: 1},
-            {src: ['./public/*'], prefix: 2},
+            {src: ['src/api/*'], prefix: 1},
+            {src: ['public/*'], prefix: 2},
         ],
         dist: 'build',
         distMedia: 'media',
@@ -23,15 +34,24 @@ module.exports = ampCreator({
         data: {
             ampEnabled: true,
         },
-        json: (file) => './src/data/' + path.basename(file).replace('.twig', '') + '.json',
-        fm: (file) => './src/data/' + path.basename(file).replace('.twig', '') + '.md',
-        fmMap: (data) => ({
+        json: (file) => 'src/data/' + makePathFromFile(file) + '.json',
+        fm: (file) => 'src/data/' + makePathFromFile(file) + '.md',
+        fmMap: (data, file) => ({
             head: {
                 title: data.attributes.title,
                 description: data.attributes.description,
                 lang: data.attributes.lang,
             },
+            links: {
+                canonical: makePathFromFile(file) === 'index' ? liveUrl : liveUrl + makePathFromFile(file),
+            },
+            content: md.render(data.body),
         }),
+    },
+    watchFolders: {
+        twig: ['src/data/**/*.json', 'src/data/**/*.md'],
+        sass: [],
+        media: [],
     },
     prettyUrlExtensions: ['html'],
 })
