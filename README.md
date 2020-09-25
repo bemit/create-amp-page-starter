@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c2214cb4-af67-4525-a4ce-a4c68d3fa70d/deploy-status)](https://app.netlify.com/sites/create-amp-page/deploys)
 
-Starting point for AMP pages generated with [`create-amp-page`](https://github.com/bemit/Formanta/tree/master/packages/create-amp-page) and using [`@formanta/sass`](https://github.com/bemit/FormantaSass) for styling.
+Starting point for AMP pages generated with [`create-amp-page`](https://github.com/bemit/create-amp-page) and using [`@formanta/sass`](https://github.com/bemit/FormantaSass) for styling.
 
     npm i
     npm start
