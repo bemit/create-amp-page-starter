@@ -11,12 +11,15 @@
 {% endblock %}
 
 {% block foot_js %}
-    {# NETLIFY-CMS #}
-    <amp-script layout="container" src="https://identity.netlify.com/v1/netlify-identity-widget.js">
-    </amp-script>
-
     {% if not ampEnabled %}
-        {# todo: for AMP custom JS is not allowed, thus the redirect after login does not work #}
+        {# NETLIFY-CMS #}
+        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js">
+        </script>
+        {#
+            for AMP custom JS is not allowed,
+            thus the redirect after login does not work.
+            The email templates must be adjusted for AMP to correctly work with netlify identity for the admin only.
+        #}
         <script>
             if(window.netlifyIdentity) {
                 window.netlifyIdentity.on('init', user => {
