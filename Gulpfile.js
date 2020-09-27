@@ -20,6 +20,7 @@ module.exports = ampCreator({
         copy: [
             {src: ['src/api/*'], prefix: 1},
             {src: ['public/*'], prefix: 2},
+            {src: ['public/**/*'], prefix: 1},
         ],
         dist: 'build',
         distMedia: 'media',
@@ -31,14 +32,21 @@ module.exports = ampCreator({
         // headline anchors
         '#anc-*',
         // footsnotes
-        '#fn*'
+        '#fn*',
     ],
+    collections: [{
+        data: 'src/data/blog/*.md',
+        tpl: 'src/html/blog.twig',
+        base: 'blog/',
+    }],
     twig: {
         data: {
             ampEnabled: true,
         },
         json: (file) => 'src/data/' + makePathFromFile(file) + '.json',
-        fm: (file) => 'src/data/' + makePathFromFile(file) + '.md',
+        fm: (file) => {
+            return 'src/data/' + makePathFromFile(file) + '.md'
+        },
         fmMap: (data, file) => ({
             head: {
                 title: data.attributes.title,
@@ -46,7 +54,7 @@ module.exports = ampCreator({
                 lang: data.attributes.lang,
             },
             links: {
-                canonical: makePathFromFile(file) === 'index' ? liveUrl : liveUrl + makePathFromFile(file),
+                canonical: makePathFromFile(file.path) === 'index' ? liveUrl : liveUrl + makePathFromFile(file.path),
             },
             content: renderMd(data.body),
         }),
