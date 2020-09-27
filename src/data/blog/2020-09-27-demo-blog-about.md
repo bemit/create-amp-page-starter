@@ -2,7 +2,7 @@
 layout: blog
 title: Demo Blog About
 date: 2020-09-27T12:59:00.117Z
-thumbnail: /media/img-01.png
+hero_image: /media/img-02.jpg
 rating: 5
 ---
 # Demo Blog About

@@ -57,6 +57,7 @@ module.exports = ampCreator({
             links: {
                 canonical: makePathFromFile(file.path) === 'index' ? liveUrl : liveUrl + makePathFromFile(file.path),
             },
+            hero_image: data.attributes.hero_image,
             content: renderMd(data.body),
         }),
     },
@@ -90,6 +91,27 @@ const md = markdownit({
     .use(require('markdown-it-deflist'))
     .use(require('markdown-it-ins'))
     .use(require('markdown-it-mark'))
+
+
+const defaultLinkRenderer = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options)
+}
+md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+    const hrefRaw = tokens[idx].attrs && tokens[idx].attrs.reduce((v, prev) => prev || v[0] === 'href')
+    const href = hrefRaw ? hrefRaw[1] : ''
+    if(
+        href.indexOf('http://') === 0 ||
+        href.indexOf('https://') === 0 ||
+        href.indexOf('ftp://') === 0 ||
+        href.indexOf('ftps://') === 0
+    ) {
+        // add target blank and security attrs to any external/full url
+        tokens[idx].attrPush(['target', '_blank'])
+        tokens[idx].attrPush(['rel', 'noreferrer noopener'])
+    }
+
+    return defaultLinkRenderer(tokens, idx, options, env, self)
+}
 
 // plugin for advanced use cases:
 // https://github.com/markdown-it/markdown-it-container

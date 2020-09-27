@@ -1,6 +1,10 @@
 {% extends '_base.twig' %}
 
 {% block content %}
+    {% if hero_image %}
+        {% embed 'blocks/image.twig' with {src: hero_image, alt: 'A blog hero image', classes: 'mb2'} %}
+        {% endembed %}
+    {% endif %}
     <section class="container container-medium container-fixed px2">
         {{ content }}
     </section>

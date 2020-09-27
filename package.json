@@ -1,10 +1,9 @@
 {
     "name": "create-amp-page-starter",
     "private": true,
-    "version": "0.0.1",
-    "description": "",
-    "homepage": "",
-    "author": "Michael Becker <michael@bemit.codes>",
+    "version": "0.1.0",
+    "description": "Starter template for AMP static site generation",
+    "author": "Michael Becker https://mlbr.xyz",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -12,7 +11,8 @@
     },
     "dependencies": {
         "@formanta/sass": "~0.20.2",
-        "create-amp-page": "~0.1.1",
+        "create-amp-page": "~0.1.2",
+        "image-size": "^0.9.1",
         "markdown-it": "^11.0.1",
         "markdown-it-abbr": "^1.0.4",
         "markdown-it-anchor": "^5.3.0",
@@ -21,7 +21,8 @@
         "markdown-it-ins": "^3.0.0",
         "markdown-it-mark": "^3.0.0",
         "markdown-it-toc-done-right": "^4.1.0",
-        "normalize.css": "^8.0.1"
+        "normalize.css": "^8.0.1",
+        "sharp": "^0.26.1"
     },
     "scripts": {
         "tasks": "gulp --tasks",

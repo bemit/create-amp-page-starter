@@ -58,7 +58,7 @@ Provides a basic file structure and uses the gulp build tasks of create-amp-page
 
 ## Netlify CMS
 
-This starter repository supports one click deployment on netlify, in your netlify project the identity handling must be setup you are ready! The template files, scripts and content schemas are already configured.
+This starter repository supports one click deployment on netlify, in your netlify project the identity handling must be setup - and you are ready! The template files, scripts and content schemas are already configured.
 
 Setup identity management and adjust the email templates:
 
@@ -79,7 +79,28 @@ Setup identity management and adjust the email templates:
 
 This is an AMP boilerplate and can't use netlifys custom JS login redirect-handling, the login would be buggy: after accepting the invite you will be directed to `/`, this triggers the login correctly (JWT exchange) when the identity widget is loaded, but you will not be redirected to `/admin/` again. To solve this, the email templates must be changed and `/admin/` added between domain and `#` before the tokens, the templates at `src/email/` are already adjusted. For `ampEnabled=false` the identity widget will be loaded by default in frontend, you may remove it in `src/html/_base.twig`. The email templates are copied to `build/email` as netlify needs normal HTTP access.
 
-Take a look at the [authentication documentation for netlify cms](https://www.netlifycms.org/docs/add-to-your-site/#authentication), and check how to [configure the cms](https://www.netlifycms.org/docs/configuration-options/).
+Take a look at the [authentication documentation for netlify cms](https://www.netlifycms.org/docs/add-to-your-site/#authentication), check how to [configure the cms](https://www.netlifycms.org/docs/configuration-options/) and checkout the [default widgets](https://www.netlifycms.org/docs/widgets/#default-widgets).
+
+
+## AMP Component Library
+
+This starter will contain more and more ready to use AMP components and their CMS definitions.
+
+Starting with only an embeddable `img`/`amp-img` tag.
+
+### Twig Embed Image
+
+Displays an `img` or `amp-img` tag, `layout` defaults to 'responsive'.
+
+```twig
+{% embed 'blocks/image.twig' with {
+    src: '/media/img-01.png',
+    alt: 'A blog hero image',
+    classes: 'mb2',
+    layout: 'responsive',
+} %}
+{% endembed %}
+```
 
 ## License
 

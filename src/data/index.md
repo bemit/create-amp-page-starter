@@ -3,6 +3,7 @@ title: Create AMP Page Demo
 lang: en
 description: Demo deployment of an AMP page developed using create-amp-app and @formanta/sass
 ---
+[![Deploy to Netlify](https://img.shields.io/badge/Deploy%20to%20netlify-success?style=for-the-badge&logo=netlify&labelColor=0e1e25&color=00C7B7)](https://app.netlify.com/start/deploy?repository=https://github.com/bemit/create-amp-page-starter) [![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/bemit/create-amp-page-starter)
 
 # Markdown Features & Dummy Text
 
