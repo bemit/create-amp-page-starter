@@ -9,3 +9,24 @@
         <p class="mt0 light">powered by <a href="https://github.com/bemit/create-amp-page">create-amp-page</a></p>
     </footer>
 {% endblock %}
+
+{% block foot_js %}
+    {# NETLIFY-CMS #}
+    <amp-script layout="container" src="https://identity.netlify.com/v1/netlify-identity-widget.js">
+    </amp-script>
+
+    {% if not ampEnabled %}
+        {# todo: for AMP custom JS is not allowed, thus the redirect after login does not work #}
+        <script>
+            if(window.netlifyIdentity) {
+                window.netlifyIdentity.on('init', user => {
+                    if(!user) {
+                        window.netlifyIdentity.on('login', () => {
+                            document.location.href = '/admin/'
+                        })
+                    }
+                })
+            }
+        </script>
+    {% endif %}
+{% endblock %}

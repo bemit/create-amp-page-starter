@@ -63,12 +63,13 @@ publish = "build/"
 # PER-DEPLOY.
 
 # A basic redirect rule
-[[redirects]]
-from = "/admin/*"
-to = "/admin"
+#[[redirects]]
+#from = "/shop/*"
+#to = "/shop"
 
 # The default HTTP status code is 301, but you can define a different one.
-status = 302
+#status = 302
+
 # A redirect rule with all the supported properties
 [[redirects]]
 from = "/index.html"
