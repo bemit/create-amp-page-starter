@@ -63,22 +63,21 @@ This starter repository supports one click deployment on netlify, in your netlif
 Setup identity management and adjust the email templates:
 
 1. In netlify project, under identity: click `enable identity`
-2. Click on "settings & usage"
+2. Click on `Settings & Usage`
 3. Scroll to `Registration preferences` and change to `Invite only`
-4. Add external providers with default config
-5. Scroll to `Git Gateway` and click enable
-6. Now the general identity handling is working
-7. Change the email template paths, read why below.
-    - `Invitation template` to: `/src/email/invitation.html`
-    - `Confirmation template` to: `/src/email/confirmation.html`
-    - `Recovery template` to: `/src/email/recovery.html`
-    - `Email change template` to: `/src/email/email-change.html`
-8. Invite yourself in the project's identity management
-8. Ready to login under `https://<your-page-name>.netlify.app/admin/` and check your page at `https://<your-page-name>.netlify.app/`
+4. Optional, recommended: add external providers with default config like GitHub
+5. Scroll to `Git Gateway` and enable it
+6. Now the general **identity handling is working**
+7. **Change email** template paths in netlify, read why below
+    - `Invitation template` to: `/email/invitation.html`
+    - `Confirmation template` to: `/email/confirmation.html`
+    - `Recovery template` to: `/email/recovery.html`
+    - `Email change template` to: `/email/email-change.html`
+8. **Invite yourself** in the project's identity management
+9. Ready to login under `https://<your-page-name>.netlify.app/admin/`, your page is published at `https://<your-page-name>.netlify.app/`
+10. Check `netlify.toml` for deployment settings like basic auth, edit the CMS content schema in `public/admin/config.yml`
 
-You can edit your CMS content schemas in `public/admin/config.yml`.
-
-This is an AMP boilerplate and can't use netlifys custom JS login redirect-handling, the login would be buggy: after login at `/admin` you will be redirected again to `/`, this triggers the login correctly (JWT exchange), but you will not be redirected to `/admin/` again. To solve this, the email templates must be changed and `/admin/` added between domain and `#` before the tokens, the templates at `src/email/` are already adjusted.
+This is an AMP boilerplate and can't use netlifys custom JS login redirect-handling, the login would be buggy: after accepting the invite you will be directed to `/`, this triggers the login correctly (JWT exchange) when the identity widget is loaded, but you will not be redirected to `/admin/` again. To solve this, the email templates must be changed and `/admin/` added between domain and `#` before the tokens, the templates at `src/email/` are already adjusted. For `ampEnabled=false` the identity widget will be loaded by default in frontend, you may remove it in `src/html/_base.twig`. The email templates are copied to `build/email` as netlify needs normal HTTP access.
 
 Take a look at the [authentication documentation for netlify cms](https://www.netlifycms.org/docs/add-to-your-site/#authentication), and check how to [configure the cms](https://www.netlifycms.org/docs/configuration-options/).
 

@@ -20,6 +20,7 @@ module.exports = ampCreator({
         copy: [
             {src: ['src/api/*'], prefix: 1},
             {src: ['public/*'], prefix: 2},
+            {src: ['src/email/*'], prefix: 1},
             {src: ['public/**/*'], prefix: 1},
         ],
         dist: 'build',
