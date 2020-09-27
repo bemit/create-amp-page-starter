@@ -2,12 +2,7 @@
 const path = require('path')
 const {ampCreator} = require('create-amp-page')
 const markdownit = require('markdown-it')
-
-const md = markdownit({
-    // html: true,
-    linkify: true,
-    typographer: true,
-})
+const {adjustHeadingLevel} = require('./markdown-it-headline-adjust')
 
 const liveUrl = 'https://create-amp-page.netlify.app/'
 
@@ -30,6 +25,8 @@ module.exports = ampCreator({
         distMedia: 'media',
         distStyles: 'styles',
     },
+    ampOptimize: process.env.NODE_ENV === 'production',
+    cleanInlineCSS: process.env.NODE_ENV === 'production',
     twig: {
         data: {
             ampEnabled: true,
@@ -45,7 +42,7 @@ module.exports = ampCreator({
             links: {
                 canonical: makePathFromFile(file) === 'index' ? liveUrl : liveUrl + makePathFromFile(file),
             },
-            content: md.render(data.body),
+            content: renderMd(data.body),
         }),
     },
     watchFolders: {
@@ -55,3 +52,27 @@ module.exports = ampCreator({
     },
     prettyUrlExtensions: ['html'],
 })
+
+const md = markdownit({
+    // html: true,
+    xhtmlOut: true,
+    linkify: true,
+    typographer: true,
+})
+    .use(adjustHeadingLevel, {firstLevel: 2})
+    .use(require('markdown-it-footnote'))
+    .use(require('markdown-it-abbr'))
+    .use(require('markdown-it-anchor'), {permalink: true, permalinkBefore: true, permalinkSymbol: '#', level: 3})
+    .use(require('markdown-it-toc-done-right'), {level: 3})
+    .use(require('markdown-it-deflist'))
+    .use(require('markdown-it-ins'))
+
+// plugin for advanced use cases:
+// https://github.com/markdown-it/markdown-it-container
+
+const renderMd = (text) => {
+    return md.render(text)
+}
+const renderInlineMd = (text) => {
+    return md.renderInline(text)
+}

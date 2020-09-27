@@ -22,5 +22,16 @@ pre > code {
     padding: space(1);
 }
 
+.footnotes {
+    &-list {
+        @include body2();
+        padding-left: 1.125em;
+    }
+    p {
+        //@include body2();
+        margin: 0;
+    }
+}
+
 @import '~@formanta/sass/style';
 
