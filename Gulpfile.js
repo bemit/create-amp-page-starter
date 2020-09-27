@@ -27,6 +27,12 @@ module.exports = ampCreator({
     },
     ampOptimize: process.env.NODE_ENV === 'production',
     cleanInlineCSS: process.env.NODE_ENV === 'production',
+    cleanInlineCSSWhitelist: [
+        // headline anchors
+        '#anc-*',
+        // footsnotes
+        '#fn*'
+    ],
     twig: {
         data: {
             ampEnabled: true,
@@ -53,6 +59,7 @@ module.exports = ampCreator({
     prettyUrlExtensions: ['html'],
 })
 
+const slugify = s => 'anc-' + encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-').replace(/&/g, ''))
 const md = markdownit({
     // html: true,
     xhtmlOut: true,
@@ -62,10 +69,18 @@ const md = markdownit({
     .use(adjustHeadingLevel, {firstLevel: 2})
     .use(require('markdown-it-footnote'))
     .use(require('markdown-it-abbr'))
-    .use(require('markdown-it-anchor'), {permalink: true, permalinkBefore: true, permalinkSymbol: '#', level: 3})
-    .use(require('markdown-it-toc-done-right'), {level: 3})
+    .use(require('markdown-it-anchor'), {
+        permalink: true, permalinkBefore: true, permalinkSymbol: '#',
+        level: 3,
+        slugify,
+    })
+    .use(require('markdown-it-toc-done-right'), {
+        slugify,
+        level: 3,
+    })
     .use(require('markdown-it-deflist'))
     .use(require('markdown-it-ins'))
+    .use(require('markdown-it-mark'))
 
 // plugin for advanced use cases:
 // https://github.com/markdown-it/markdown-it-container
