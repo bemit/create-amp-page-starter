@@ -28,8 +28,8 @@ module.exports = ampCreator({
         distMedia: 'media',
         distStyles: 'styles',
     },
-    ampOptimize: process.env.NODE_ENV === 'production',
-    cleanInlineCSS: process.env.NODE_ENV === 'production',
+    ampOptimize: process.env.NO_OPTIMIZE === 'bigfiles' ? false : process.env.NODE_ENV === 'production',
+    cleanInlineCSS: process.env.NO_OPTIMIZE === 'bigfiles' ? false : process.env.NODE_ENV === 'production',
     cleanInlineCSSWhitelist: [
         // headline anchors
         '#anc-*',
@@ -43,7 +43,7 @@ module.exports = ampCreator({
     }],
     twig: {
         data: {
-            ampEnabled: false,
+            ampEnabled: true,
         },
         json: (file) => 'src/data/' + makePathFromFile(file) + '.json',
         fm: (file) => {

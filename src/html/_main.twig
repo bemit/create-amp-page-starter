@@ -48,6 +48,13 @@
     {% block container_inner %}
         {% block content %}
         {% endblock %}
+
+        <div id="root-pwa"></div>
+        {# Load the builded script #}
+        {# <script>
+            {{ embedScript('js/main.js')|raw }}
+        </script> #}
+
     {% endblock %}
 
     {% block footer %}

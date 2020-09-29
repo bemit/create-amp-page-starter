@@ -102,8 +102,18 @@
     },
     "scripts": {
         "tasks": "gulp --tasks",
+        "snap": "react-snap && node copy.js",
+        "snap-build": "npm run clean && cross-env NO_OPTIMIZE=bigfiles npm run build && npm run snap",
         "start": "cross-env NODE_ENV=development gulp watch",
         "build": "cross-env NODE_ENV=production gulp build",
         "clean": "gulp clean"
+    },
+    "reactSnap": {
+        "source": "build",
+        "minifyHtml": {
+            "asyncScriptTags": true,
+            "collapseWhitespace": false,
+            "removeComments": false
+        }
     }
 }

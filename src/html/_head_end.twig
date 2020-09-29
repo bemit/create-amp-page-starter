@@ -10,20 +10,20 @@
     <link href="/styles/main.css" rel="stylesheet" type="text/css"/>
 {% endif %}
 
+<script src="/js/main.js" async defer></script>
+
+{# buggy (disabled) code in `_base.twig`
+
 {% if ampEnabled %}
-    {# buggy (disabled) code in `_base.twig` #}
     <script src="/js/main.js" async defer></script>
-    {# <script>
-        {{ embedScript('js/main.js')|raw }}
-    </script> #}
 {% else %}
     {#
-    for non-AMP pages you may be prefer the normal `src`
-    a static React renderer may need it
-
     <script>
         {{ embedScript('js/main.js')|raw }}
     </script>
-    #}
+
+    or:
+
     <script src="/js/main.js" async defer></script>
 {% endif %}
+#}
