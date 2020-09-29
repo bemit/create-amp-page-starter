@@ -35,6 +35,7 @@ module.exports = ampCreator({
         '#anc-*',
         // footsnotes
         '#fn*',
+        '#root-pwa'
     ],
     collections: [{
         data: 'src/data/blog/*.md',
