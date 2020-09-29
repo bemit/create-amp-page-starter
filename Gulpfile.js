@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs')
 const path = require('path')
 const {ampCreator} = require('create-amp-page')
 const markdownit = require('markdown-it')
@@ -42,7 +43,7 @@ module.exports = ampCreator({
     }],
     twig: {
         data: {
-            ampEnabled: true,
+            ampEnabled: false,
         },
         json: (file) => 'src/data/' + makePathFromFile(file) + '.json',
         fm: (file) => {
@@ -67,6 +68,27 @@ module.exports = ampCreator({
         media: [],
     },
     prettyUrlExtensions: ['html'],
+}, (gulp, tasks, options, internals) => {
+
+    const webpackTask = require('./Gulpfile.esnext')
+
+    // todo: solve multiple entrypoints, this seems to be not supported by `webpack-stream`
+    //       there can be used something like `parallel(webpackSrc.map(src => webpackTask(webpackSrc, options.paths.dist, false))`
+    //       this will build multiple entrypoints into separate files, but can NOT share chunks between them automatically!
+
+    const webpackSrc = 'src/js/main.js'
+
+    const webpack = watch => webpackTask(webpackSrc, options.paths.dist, internals.browsersync, watch)
+
+    return {
+        ...tasks,
+        build: gulp.series(tasks.clean, webpack(false), tasks.builder),
+        watch: gulp.series(
+            // run webpack first without watching, so ampTasks may already use compiled JS when needed
+            webpack(false),
+            gulp.parallel(webpack(true), tasks.watcher, internals.browserSyncSetup),
+        ),
+    }
 })
 
 const slugify = s => 'anc-' + encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-').replace(/&/g, ''))

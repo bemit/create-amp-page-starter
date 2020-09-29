@@ -4,8 +4,15 @@
 {% endblock %}
 
 {% block footer_inner__ %}
+    <div id="root-pwa"></div>
     <footer class="container container-medium center">
         <p class="mb0">&copy; 2020 Your Page</p>
+        {#
+        can only be tested deployed, enforces SSL, todo: add SSL support to cap
+        {% if ampEnabled %}
+            <amp-script src="js/main.js" width="0" height="0" layout="container">
+            </amp-script>
+        {% endif %} #}
         <p class="mt0 light">powered by <a href="https://github.com/bemit/create-amp-page">create-amp-page</a></p>
     </footer>
 {% endblock %}
@@ -16,9 +23,9 @@
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js">
         </script>
         {#
-            for AMP custom JS is not allowed,
-            thus the redirect after login does not work.
-            The email templates must be adjusted for AMP to correctly work with netlify identity for the admin only.
+        for AMP custom JS is not allowed,
+        thus the redirect after login does not work.
+        The email templates must be adjusted for AMP to correctly work with netlify identity for the admin only.
         #}
         <script>
             if(window.netlifyIdentity) {
