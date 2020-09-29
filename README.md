@@ -1,10 +1,22 @@
-# Create AMP Page Starter
+# Create AMP Page Starter ⚡
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c2214cb4-af67-4525-a4ce-a4c68d3fa70d/deploy-status)](https://app.netlify.com/sites/create-amp-page/deploys)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
+[![Features](https://img.shields.io/badge/Features-blue?labelColor=333&color=4f4f4f&style=for-the-badge&logo=vercel&logoColor=333)](#features)
+
+[![File Structure](https://img.shields.io/badge/File%20Structure-blue?labelColor=333&color=4f4f4f&style=for-the-badge&logo=vercel&logoColor=333)](#default-file-structure)
+
+[![Netlify CMS](https://img.shields.io/badge/Netlify%20CMS-blue?labelColor=333&color=4f4f4f&style=for-the-badge&logo=vercel&logoColor=333)](#netlify-cms)
+
+[![Component Library](https://img.shields.io/badge/Component%20Library-blue?labelColor=333&color=4f4f4f&style=for-the-badge&logo=vercel&logoColor=333)](#amp-component-library)
+
+[![License](https://img.shields.io/badge/License-grey?labelColor=333&style=for-the-badge&logo=vercel&logoColor=333)](#license)
+
 Starting point for [AMP](https://amp.dev) pages generated with [create-amp-page](https://github.com/bemit/create-amp-page) and using [@formanta/sass](https://formanta.bemit.codes) for styling.
 Directly deploy with [netlify cms](https://www.netlifycms.org/) as git managed static site generator!
+
+[![Deploy to Netlify](https://img.shields.io/badge/Deploy%20to%20netlify-success?style=for-the-badge&logo=netlify&labelColor=0e1e25&color=00C7B7)](https://app.netlify.com/start/deploy?repository=https://github.com/bemit/create-amp-page-starter) [![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/bemit/create-amp-page-starter)
 
     npm i
     npm start
@@ -17,7 +29,7 @@ Directly deploy with [netlify cms](https://www.netlifycms.org/) as git managed s
 
 Open [localhost:4488](http://localhost:4488) for your local page preview and change something in `src/*`!
 
-[![Deploy to Netlify](https://img.shields.io/badge/Deploy%20to%20netlify-success?style=for-the-badge&logo=netlify&labelColor=0e1e25&color=00C7B7)](https://app.netlify.com/start/deploy?repository=https://github.com/bemit/create-amp-page-starter) [![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/bemit/create-amp-page-starter)
+## Features
 
 Provides a basic file structure and uses the gulp build tasks of create-amp-page, with additionally: markdown and netlify cms.
 
@@ -84,13 +96,15 @@ Take a look at the [authentication documentation for netlify cms](https://www.ne
 
 ## AMP Component Library
 
-This starter will contain more and more ready to use AMP components and their CMS definitions.
+This starter will contain more and more ready to use AMP components and their CMS definitions when needed.
 
-Starting with only an embeddable `img`/`amp-img` tag.
+Universal Twig functions, used within templates, are included in `create-amp-page`, check out the [function docs](https://github.com/bemit/create-amp-page#twig-functions)
 
 ### Twig Embed Image
 
-Displays an `img` or `amp-img` tag, `layout` defaults to 'responsive'.
+Displays an `img` or `amp-img` tag using `ampEnabled`, `layout` defaults to 'responsive'. Set's width and height using `getImage` fn, adds sha1 cachebuster.
+
+> todo: srcset and image resizing support
 
 ```twig
 {% embed 'blocks/image.twig' with {
