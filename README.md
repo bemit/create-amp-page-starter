@@ -59,7 +59,7 @@ Provides a basic file structure and uses the gulp build tasks of create-amp-page
     - identity management by netlify, github and more
     - **easily removed** when not wanted:
         - delete `public/admin` folder and remove the netlify cms part in `src/html/_base.twig` block `foot_js`
-- supports easy addition of ESNext and React, [feature/esnext](#feature--esnext)
+- supports easy addition of ESNext and React, [feature/esnext](#featureesnext)
 
 ## Default File Structure
 
