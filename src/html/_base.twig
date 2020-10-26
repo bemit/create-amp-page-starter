@@ -53,13 +53,16 @@
 {% endblock %}
 
 {% block footer_inner__ %}
-    <div class="footer--end">
-        <p class="center">
-            © 2015 - 2020
-            <a href="https://mlbr.xyz">Michael Becker</a>,
-            <a href="https://bemit.eu">bemit<small> UG (haftungsbeschränkt)</small></a>
-        </p>
-    </div>
+    <footer class="container container-medium center">
+        <p class="mb0">&copy; 2020 Your Page</p>
+        {#
+        can only be tested deployed, enforces SSL, todo: add SSL support to cap
+        {% if ampEnabled %}
+            <amp-script src="js/main.js" width="0" height="0" layout="container">
+            </amp-script>
+        {% endif %} #}
+        <p class="mt0 light">powered by <a href="https://github.com/bemit/create-amp-page">create-amp-page</a></p>
+    </footer>
 {% endblock %}
 
 {% block foot_js %}
