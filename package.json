@@ -1,7 +1,7 @@
 {
     "name": "create-amp-page-starter",
     "private": true,
-    "version": "0.1.0",
+    "version": "1.0.0-alpha.1",
     "description": "Starter template for AMP static site generation",
     "author": "Michael Becker https://mlbr.xyz",
     "license": "MIT",
@@ -9,9 +9,11 @@
         "type": "git",
         "url": "https://github.com/bemit/create-amp-page-starter.git"
     },
+    "type": "module",
     "dependencies": {
-        "@formanta/sass": "~0.20.2",
-        "create-amp-page": "~0.2.3",
+        "@formanta/sass": "~0.21.0",
+        "create-amp-page": "~1.0.0-alpha.1",
+        "cross-env": "^7.0.3",
         "markdown-it": "^11.0.1",
         "markdown-it-abbr": "^1.0.4",
         "markdown-it-anchor": "^5.3.0",

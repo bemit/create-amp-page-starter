@@ -13,9 +13,6 @@
     {% if head.keywords %}
         <meta name="keywords" content="{{ head.keywords }}">
     {% endif %}
-    {# {% if head.lang %}
-        <meta http-equiv="language" content="{{ head.lang }}">
-    {% endif %} #}
 
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
@@ -34,6 +31,14 @@
             ]
         }
     </script> #}
+{% endblock %}
+
+{% block head_script %}
+    {{ parent() }}
+    {% if ampEnabled %}
+        {% set amp_version = '0.1' %}
+        <script custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-{{ amp_version }}.js" async=""></script>
+    {% endif %}
 {% endblock %}
 
 {% block head_style %}
@@ -65,7 +70,7 @@
     </footer>
 {% endblock %}
 
-{% block foot_js %}
+{% block body_end_script %}
     {% if not ampEnabled %}
         {# NETLIFY-CMS #}
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js">

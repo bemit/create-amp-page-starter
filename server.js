@@ -3,9 +3,13 @@
  * - enabling BrowserRouter with HsitoryFallback (all non existing routing to `/index.html`
  * - beautify URL for `/` instead of `/index.html`
  */
-const path = require('path')
-const fs = require('fs')
-const express = require('express')
+import path from 'path'
+import fs from 'fs'
+import express from 'express'
+import {fileURLToPath} from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const app = express()
 

@@ -3,8 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c2214cb4-af67-4525-a4ce-a4c68d3fa70d/deploy-status)](https://app.netlify.com/sites/create-amp-page/deploys)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Starting point for [AMP](https://amp.dev) pages generated with [create-amp-page](https://github.com/bemit/create-amp-page) and using [@formanta/sass](https://formanta.bemit.codes) for styling.
-Directly deploy with [netlify cms](https://www.netlifycms.org/) as git managed static site generator!
+Starting point for [AMP](https://amp.dev) pages generated with [create-amp-page](https://github.com/bemit/create-amp-page) and using [@formanta/sass](https://formanta.bemit.codes) for styling. Directly deploy with [netlify cms](https://www.netlifycms.org/) as git managed static site generator!
 
 [![Deploy to Netlify](https://img.shields.io/badge/Deploy%20to%20netlify-success?style=for-the-badge&logo=netlify&labelColor=0e1e25&color=00C7B7)](https://app.netlify.com/start/deploy?repository=https://github.com/bemit/create-amp-page-starter) [![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/bemit/create-amp-page-starter)
 
@@ -35,10 +34,10 @@ Open [localhost:4488](http://localhost:4488) for your local page preview and cha
 
 ## Features
 
-Provides a basic file structure and uses the gulp build tasks of create-amp-page, with additionally: markdown and netlify cms.
+Provides a basic file structure and uses the gulp build tasks of [create-amp-page](https://github.com/bemit/create-amp-page), with additionally: markdown and netlify cms.
 
 - uses `.scss` files
-- page data as `.json` and `.md` with frontmatter
+- page data as `.json` and/or `.md` with frontmatter
 - twig templates and pages
     - pages by template files in `src/html/pages`
     - pages with folders of frontmatter / collections
@@ -59,8 +58,7 @@ Provides a basic file structure and uses the gulp build tasks of create-amp-page
     - git repository management and netlify CI/CD
     - identity management by netlify, github and more
     - **easily removable** when not wanted:
-        - delete `public/admin` folder and remove the netlify cms part in `src/html/_base.twig` block `foot_js`
-- supports easy addition of ESNext and React, see [feature/esnext](#featureesnext)
+        - delete `public/admin` folder and remove the netlify cms part in `src/html/_base.twig` block `body_end_script`
 
 ## Default File Structure
 
@@ -100,7 +98,6 @@ This is an AMP boilerplate and can't use netlifys custom JS login redirect-handl
 
 Take a look at the [authentication documentation for netlify cms](https://www.netlifycms.org/docs/add-to-your-site/#authentication), check how to [configure the cms](https://www.netlifycms.org/docs/configuration-options/) and checkout the [default widgets](https://www.netlifycms.org/docs/widgets/#default-widgets).
 
-
 ## AMP Component Library
 
 This starter will contain more and more ready to use AMP components and their CMS definitions when needed.
@@ -123,37 +120,11 @@ Displays an `img` or `amp-img` tag using `ampEnabled`, `layout` defaults to 'res
 {% endembed %}
 ```
 
-## Feature/ESNext
+## PWA / Javascript Support
 
-This is not really AMP compatible, or harder to develop e.g. SSL for local `amp-script` debugging, max 150KB of total script sizes. Suites non-AMP pages perfectly. Use with AMP when you know what you do!
+This is not really AMP compatible, or harder to develop e.g. SSL for local `amp-script` debugging and max. 150KB of total script sizes. Suites non-AMP pages perfectly. Use with AMP when you know what you do!
 
-### ESNext Client Side
-
-> beta: webpack and babel config with `wrap` on `ampCreator`
-
-In `feature/esnext` a modern webpack & babel buildsetup is preconfigured.
-
-Start coding in ES6+, Typescript and React, use babel plugins and more.
-
-Embed or reference (`src`) the produced asset files directly.
-
-Check the file level [differences between feature/esnext and master](https://github.com/bemit/create-amp-page-starter/compare/feature/esnext) starter template. Will be documented here when finalized as easy reproducible steps.
-
-### React Static
-
-Render your React directly at the build process, clean and rich HTML for SEO and client side speedup!
-
-> alpha: it works, but features need optimizing / coworking-with-twig, like resizing used images
->
-> template structure must be adjusted before using snap, as every dynamic thing must be rendered with react and not through twig
-> or react-snap uses a different twig template for each page (seems to be hard)
-
-Enabled in the `feature/esnext` branch, using [react-snap](https://github.com/stereobooster/react-snap) for "server side react rendering" and fixing [react-snap#493](https://github.com/stereobooster/react-snap/issues/493) through the custom `/copy.js`, adding the HTML cleaning and optimizing tasks again.
-
-Commands:
-
-    # use `snap-build` now instead of `build`
-    npm run snap-build
+Checkout the separate [create-page-starter repository](https://github.com/bemit/create-page-starter), it has babel+webpack configured with Typescript and React.
 
 ## License
 
@@ -167,5 +138,5 @@ By committing your code/creating a pull request to this repository you agree to 
 
 ## Copyright
 
-2020 | [Michael Becker](https://mlbr.xyz), [bemit UG (haftungsbeschränkt)](https://bemit.codes)
+2021 | [Michael Becker](https://mlbr.xyz), [bemit UG (haftungsbeschränkt)](https://bemit.codes)
 

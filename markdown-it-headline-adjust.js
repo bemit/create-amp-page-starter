@@ -10,7 +10,7 @@ function getHeadingLevel(tagName) {
     return parseInt(tagName, 10)
 }
 
-exports.adjustHeadingLevel = function adjustHeadingLevel(md, options) {
+export function adjustHeadingLevel(md, options) {
     let firstLevel = options.firstLevel
 
     if(typeof firstLevel === 'string') {

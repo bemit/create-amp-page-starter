@@ -1,16 +1,24 @@
-'use strict'
-const path = require('path')
-const {ampCreator} = require('create-amp-page')
-const markdownit = require('markdown-it')
-const {adjustHeadingLevel} = require('./markdown-it-headline-adjust')
+import path from 'path'
+import gulp from 'gulp'
+import {ampCreator} from 'create-amp-page'
+import markdownit from 'markdown-it'
+import {adjustHeadingLevel} from './markdown-it-headline-adjust.js'
+import markdownFootnote from 'markdown-it-footnote'
+import markdownAbbr from 'markdown-it-abbr'
+import markdownAnchor from 'markdown-it-anchor'
+import markdownToc from 'markdown-it-toc-done-right'
+import markdownDeflist from 'markdown-it-deflist'
+import markdownIns from 'markdown-it-ins'
+import markdownMark from 'markdown-it-mark'
 
 const liveUrl = 'https://create-amp-page.netlify.app/'
 
 const makePathFromFile = file => path.basename(file).replace('.twig', '')
+const port = process.env.PORT || 4488
 
 // for infos check `create-amp-page` docs or typings/inline-doc!
-module.exports = ampCreator({
-    port: 4488,
+const tasks = ampCreator({
+    port: port,
     paths: {
         styles: 'src/styles',
         stylesInject: 'main.css',
@@ -32,7 +40,7 @@ module.exports = ampCreator({
     cleanInlineCSSWhitelist: [
         // headline anchors
         '#anc-*',
-        // footsnotes
+        // footnotes
         '#fn*',
     ],
     collections: [{
@@ -56,6 +64,7 @@ module.exports = ampCreator({
             },
             links: {
                 canonical: makePathFromFile(file.path) === 'index' ? liveUrl : liveUrl + makePathFromFile(file.path),
+                origin: process.env.NODE_ENV === 'development' ? 'http://localhost:' + port : liveUrl,
             },
             hero_image: data.attributes.hero_image,
             content: renderMd(data.body),
@@ -68,6 +77,7 @@ module.exports = ampCreator({
     },
     prettyUrlExtensions: ['html'],
 })
+Object.keys(tasks).forEach(taskName => gulp.task(taskName, tasks[taskName]))
 
 const slugify = s => 'anc-' + encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-').replace(/&/g, ''))
 const md = markdownit({
@@ -77,20 +87,20 @@ const md = markdownit({
     typographer: true,
 })
     .use(adjustHeadingLevel, {firstLevel: 2})
-    .use(require('markdown-it-footnote'))
-    .use(require('markdown-it-abbr'))
-    .use(require('markdown-it-anchor'), {
+    .use(markdownFootnote)
+    .use(markdownAbbr)
+    .use(markdownAnchor, {
         permalink: true, permalinkBefore: true, permalinkSymbol: '#',
         level: 3,
         slugify,
     })
-    .use(require('markdown-it-toc-done-right'), {
+    .use(markdownToc, {
         slugify,
         level: 3,
     })
-    .use(require('markdown-it-deflist'))
-    .use(require('markdown-it-ins'))
-    .use(require('markdown-it-mark'))
+    .use(markdownDeflist)
+    .use(markdownIns)
+    .use(markdownMark)
 
 
 const defaultLinkRenderer = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
