@@ -1,6 +1,5 @@
 import path from 'path'
-import gulp from 'gulp'
-import {ampCreator} from 'create-amp-page'
+import {ampCreator, gulp} from 'create-amp-page'
 import markdownit from 'markdown-it'
 import {adjustHeadingLevel} from './markdown-it-headline-adjust.js'
 import markdownFootnote from 'markdown-it-footnote'

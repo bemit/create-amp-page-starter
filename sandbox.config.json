@@ -3,6 +3,7 @@
     "view": "browser",
     "container": {
         "port": 4488,
+        "node": "12",
         "startScript": "npm start"
     }
 }
