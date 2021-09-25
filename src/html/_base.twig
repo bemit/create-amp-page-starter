@@ -57,6 +57,23 @@
     {% endif %}
 {% endblock %}
 
+{% block header %}
+    <header class="sticky flex justify-start items-center top-0 left-0 right-0 pl2 pr4 bg-white-trans z4" data-e2e="header">
+        <div role="button" aria-label="open sidebar" on="tap:header-sidebar.toggle" tabindex="0" class="fixed left-0 pt2 pb1 pl1 pr1 cursor-pointer">
+            ☰
+        </div>
+        <a href="/" class="mxa h-color body1 bold my0 py1" data-e2e="header-title">
+            Some Page
+        </a>
+    </header>
+{% endblock %}
+
+{% block container_inner %}
+    <div data-e2e="content">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
 {% block footer_inner__ %}
     <footer class="container container-medium center">
         <p class="mb0">&copy; 2020 Your Page</p>
@@ -76,9 +93,9 @@
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js">
         </script>
         {#
-            for AMP custom JS is not allowed,
-            thus the redirect after login does not work.
-            The email templates must be adjusted for AMP to correctly work with netlify identity for the admin only.
+        for AMP custom JS is not allowed,
+        thus the redirect after login does not work.
+        The email templates must be adjusted for AMP to correctly work with netlify identity for the admin only.
         #}
         <script>
             if(window.netlifyIdentity) {

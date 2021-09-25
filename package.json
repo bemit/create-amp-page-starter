@@ -1,7 +1,7 @@
 {
     "name": "create-amp-page-starter",
     "private": true,
-    "version": "1.0.0-alpha.4",
+    "version": "1.0.0-alpha.5",
     "description": "Starter template for AMP static site generation",
     "author": "Michael Becker https://mlbr.xyz",
     "license": "MIT",
@@ -11,13 +11,15 @@
     },
     "type": "module",
     "dependencies": {
-        "nodemon": "^2.0.6",
+        "cross-env": "^7.0.3",
         "express": "^4.17.1",
-        "cross-env": "^7.0.3"
+        "nodemon": "^2.0.6"
     },
     "devDependencies": {
         "@formanta/sass": "~0.21.0",
-        "create-amp-page": "~1.0.0-alpha.4",
+        "concurrently": "^6.2.1",
+        "create-amp-page": "~1.0.0-alpha.5",
+        "cypress": "^8.4.1",
         "markdown-it": "^11.0.1",
         "markdown-it-abbr": "^1.0.4",
         "markdown-it-anchor": "^5.3.0",
@@ -31,8 +33,12 @@
     "scripts": {
         "tasks": "gulp --tasks",
         "serve": "nodemon server.js",
-        "start": "cross-env NODE_ENV=development gulp watch",
+        "start": "cross-env NODE_ENV=development concurrently --kill-others npm:watch npm:tdd-ui",
+        "watch": "gulp watch",
         "build": "cross-env NODE_ENV=production gulp build",
+        "postbuild": "npm run test-ui",
+        "tdd-ui": "cypress open",
+        "test-ui": "cypress run",
         "clean": "gulp clean"
     }
 }
