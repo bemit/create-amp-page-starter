@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 
-const publicDir = path.resolve(__dirname, 'build')
+const publicDir = path.resolve(__dirname, 'build', 'defaultPage')
 // const historyFallback = 'index.html'
 const historyFallback = false
 

@@ -1,5 +1,5 @@
 import path from 'path'
-import {ampCreator, gulp} from 'create-amp-page'
+import {ampCreator, getPageInfo, getPagesIndex, gulp} from 'create-amp-page'
 import markdownit from 'markdown-it'
 import {adjustHeadingLevel} from './markdown-it-headline-adjust.js'
 import markdownFootnote from 'markdown-it-footnote'
@@ -9,68 +9,114 @@ import markdownToc from 'markdown-it-toc-done-right'
 import markdownDeflist from 'markdown-it-deflist'
 import markdownIns from 'markdown-it-ins'
 import markdownMark from 'markdown-it-mark'
-
-const liveUrl = 'https://create-amp-page.netlify.app/'
+import AmpOptimizer from '@ampproject/toolbox-optimizer'
 
 const makePathFromFile = file => path.basename(file).replace('.twig', '')
 const port = process.env.PORT || 4488
+const isDev = process.env.NODE_ENV === 'development'
+
+const urls = {
+    defaultPage: {
+        local: {base: 'http://localhost:' + port + '/defaultPage/'},
+        prod: {base: 'https://create-amp-page.netlify.app/'},
+    },
+}
+
+const pages = {
+    defaultPage: {
+        paths: {
+            styles: 'src/styles',
+            stylesInject: 'main.css',
+            style: 'main.scss',
+            html: 'src/html',
+            copy: [
+                {src: ['src/api/*'], prefix: 1},
+                {src: ['public/*'], prefix: 2},
+                {src: ['src/email/*'], prefix: 1},
+                {src: ['public/**/*'], prefix: 1},
+            ],
+            dist: 'build/defaultPage',
+            distStyles: 'styles',
+        },
+    },
+}
 
 // for infos check `create-amp-page` docs or typings/inline-doc!
 const tasks = ampCreator({
     port: port,
-    paths: {
-        styles: 'src/styles',
-        stylesInject: 'main.css',
-        html: 'src/html',
-        htmlPages: 'src/html/pages',
-        media: 'src/media',
-        copy: [
-            {src: ['src/api/*'], prefix: 1},
-            {src: ['public/*'], prefix: 2},
-            {src: ['src/email/*'], prefix: 1},
-            {src: ['public/**/*'], prefix: 1},
-        ],
-        dist: 'build',
-        distMedia: 'media',
-        distStyles: 'styles',
-    },
-    ampOptimize: process.env.NODE_ENV === 'production',
-    cleanInlineCSS: process.env.NODE_ENV === 'production',
+    dist: 'build',
+    srcMedia: 'src/media',
+    distMedia: 'media',
+    ampOptimizer: !isDev ? AmpOptimizer.create({}) : undefined,
+    cleanInlineCSS: !isDev,
     cleanInlineCSSWhitelist: [
         // headline anchors
         '#anc-*',
         // footnotes
         '#fn*',
     ],
+    pages: pages,
     collections: [{
-        data: 'src/data/blog/*.md',
+        //data: 'src/data',
+        fm: (file) => 'src/data/' + makePathFromFile(file) + '.md',
+        tpl: 'src/html/pages/*.twig',
+        pagesByTpl: true,
+        base: '',
+        pageId: 'defaultPage',
+    }, {
+        fm: 'src/data/blog/*.md',
         tpl: 'src/html/blog.twig',
-        base: 'blog/',
+        base: 'blog',
+        pageId: 'defaultPage',
     }],
     twig: {
         data: {
+            cssInject: !isDev,
             ampEnabled: true,
+            injectNetlifyIdentity: false,
         },
-        json: (file) => 'src/data/' + makePathFromFile(file) + '.json',
-        fm: (file) => {
-            return 'src/data/' + makePathFromFile(file) + '.md'
+        fmMap: (data, files) => {
+            const pageId = files.pageId
+            const pageEnv = isDev ? 'local' : 'prod'
+            const {
+                pagePath, pageBase, relPath,
+            } = getPageInfo(files, urls, pageId, pageEnv)
+            const pagesIndex = getPagesIndex(urls, pageEnv)
+            const pageData = pages[pageId]
+            return {
+                pageId: pageId,
+                styleSheets: [
+                    pageData.paths.stylesInject,
+                ],
+                head: {
+                    title: data.attributes.title,
+                    description: data.attributes.description,
+                    lang: data.attributes.lang,
+                },
+                links: {
+                    canonical: pageBase + pagePath,
+                    origin: pageBase,
+                    cdn: isDev ? 'http://localhost:' + port + '/' : pageBase,
+                    pages: pagesIndex,
+                },
+                request: {
+                    path: pagePath,
+                    // relPath,
+                },
+                hero_image: data.attributes.hero_image,
+                content: renderMd(data.body),
+            }
         },
-        fmMap: (data, file) => ({
-            head: {
-                title: data.attributes.title,
-                description: data.attributes.description,
-                lang: data.attributes.lang,
-            },
-            links: {
-                canonical: makePathFromFile(file.path) === 'index' ? liveUrl : liveUrl + makePathFromFile(file.path),
-                origin: process.env.NODE_ENV === 'development' ? 'http://localhost:' + port : liveUrl,
-            },
-            hero_image: data.attributes.hero_image,
-            content: renderMd(data.body),
-        }),
+        logicLoader: async () => {
+            const functions = await import('./twigLogic/functions.js?buster=' + new Date().getTime()).then(m => m.default)
+            return {
+                functions,
+            }
+        },
+        functions: [],
     },
     watchFolders: {
-        twig: ['src/data/**/*.json', 'src/data/**/*.md'],
+        twig: ['src/data/**/*.json', 'src/data/**/*.md', 'twigLogic/**/*.js'],
         sass: [],
         media: [],
     },

@@ -1,8 +1,9 @@
 /// <reference types="cypress" />
 
 context('Window', () => {
+    const basePath = '/defaultPage'
     beforeEach(() => {
-        cy.visit('/index.html')
+        cy.visit(basePath + '/index.html')
     })
 
     it('cy.window() - get the global window object', () => {

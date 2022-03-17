@@ -1,6 +1,7 @@
 describe('UI Base Test', () => {
+    const basePath = '/defaultPage'
     beforeEach(() => {
-        cy.visit('/index.html')
+        cy.visit(basePath + '/index.html')
     })
 
     it('Header has container', () => {

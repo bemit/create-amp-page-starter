@@ -51,9 +51,14 @@
         </style>
         {# @formatter:on #}
     {% else %}
-        <link href="/styles/main.css" rel="stylesheet" type="text/css"/>
-        {# <style>
-</style> #}
+        {% for styleSheet in styleSheets %}
+            {% if cssInject %}
+                <style>
+                </style>
+            {% else %}
+                <link href="{{ links.origin }}styles/{{ styleSheet }}" rel="stylesheet" type="text/css"/>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 {% endblock %}
 
@@ -62,7 +67,7 @@
         <div role="button" aria-label="open sidebar" on="tap:header-sidebar.toggle" tabindex="0" class="fixed left-0 pt2 pb1 pl1 pr1 cursor-pointer">
             ☰
         </div>
-        <a href="/" class="mxa h-color body1 bold my0 py1" data-e2e="header-title">
+        <a href="{{ links.origin }}" class="mxa h-color body1 bold my0 py1" data-e2e="header-title">
             Some Page
         </a>
     </header>

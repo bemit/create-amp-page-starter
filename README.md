@@ -13,14 +13,13 @@ Starting point for [AMP](https://amp.dev) pages generated with [create-amp-page]
     # or
     npm run build
 
+    # test driven UI development with cypress:
+    npm run tdd-ui
+
     npm run tasks
     npm run clean
 
-    # serve `build` with `server.js`
-    # for checking build version at port :3030
-    npm run serve
-
-Open [localhost:4488](http://localhost:4488) for your local page preview and change something in `src/*`!
+Open [localhost:4488/defaultPage](http://localhost:4488/defaultPage) for your local page preview and change something in `src/*`!
 
 [![Features](https://img.shields.io/badge/Features-blue?labelColor=333&color=f4f4f4&style=for-the-badge&logo=vercel&logoColor=333)](#features)
 
@@ -138,5 +137,5 @@ By committing your code/creating a pull request to this repository you agree to 
 
 ## Copyright
 
-2021 | [Michael Becker](https://mlbr.xyz), [bemit UG (haftungsbeschränkt)](https://bemit.codes)
+2022 | [Michael Becker](https://mlbr.xyz), [bemit UG (haftungsbeschränkt)](https://bemit.codes)
 
